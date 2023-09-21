@@ -2,22 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
     <div id="app"></div>
     <script>
         const vm = Vue.createApp({
             data() {
-                return{
-                    attr: "src",
-                    img: `https://cc-prod.scene7.com/is/image/CCProdAuthor/What-is-Stock-Photography_P1_mobile?$pjpeg$&jpegSize=200&wid=720`
+                return {
+                    evt: "submit",
+                    counter: 0
                 };
             },
-            template: `<img v-bind:[attr]="img" />`
+            methods: {
+                submit() {
+                    this.counter++;
+                }
+             },
+            template: `<form v-on:[evt].prevent="submit"><button>{{ counter }}</button></form>`
         }).mount("#app");
-        console.log(vm);
     </script>
 </body>
 </html>
