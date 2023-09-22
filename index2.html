@@ -1,3 +1,5 @@
+#toca listas (12(?))
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +15,87 @@
         const vm = Vue.createApp({
             data() {
                 return {
+                    text: "Inicia sesion",
+                    open: false,
+                    username: " ",
+                    telefono: " ",
+                    mail: " "
                 };
-             },
-            template: ``
+            },
+            watch: {
+                open(value) {
+                    if(value) {
+                        this.text = "Cierra sesion";
+                        this.styles.backgroundColor="#b5e7a0";
+                    }
+                    else {
+                        this.text = "Inicia sesion";
+                        this.styles.backgroundColor="#eca1a6";
+                        this.username = " ";
+                        this.telefono = " ";
+                        this.mail = " ";
+                    }
+                }
+            },
+            computed: {
+                label() {
+                    return this.open ? "Salir" : "Acceder";
+                },
+                styles() {
+                    return this.open ? ['open'] : ['closed'];
+                }
+            },
+            template: `
+                <div class="container" :class="styles">
+                    <h2>{{ text }}</h2>
+                    <div v-if="open">
+                        <p>Hola, {{ username }}</p>
+                        <p>Tu numero de teléfono és: {{ telefono }}</p>
+                        <p>El correo asociado es {{ mail }}</p>
+                    </div>
+                    <div v-else>
+                        <label>Username</label>
+                        <input type="text" v-model="username">
+                        <label>Teléfono</label>
+                        <input type="tel" v-model="telefono">
+                        <label>Email</label>
+                        <input type="email" v-model="mail">
+                    </div>
+                    <button @click="open = !open">
+                        <div v-if="!open">Acceder</div>
+                        <div v-else>Salir</div>
+                    </button>
+                </div>
+            `
         }).mount("#app");
     </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+        .closed {
+            background-color: #eca1a6;
+        }
+        .open {
+            background-color: #b5e7a0;
+        }
+    </style>
 </body>
 </html>
