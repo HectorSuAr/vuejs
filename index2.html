@@ -20,6 +20,23 @@
                     username: " ",
                     telefono: " ",
                     mail: " "
+                    posts: [
+                        {
+                            id: '45',
+                            title: 'Títlo 1',
+                            desc: 'Lorem ipsum, dolor sit amet... 1'
+                        },
+                        {
+                            id: '46',
+                            title: 'Títlo 2',
+                            desc: 'Lorem ipsum, dolor sit amet... 2'
+                        },
+                        {
+                            id: '47',
+                            title: 'Títlo 3',
+                            desc: 'Lorem ipsum, dolor sit amet... 3'
+                        },
+                    ],
                 };
             },
             watch: {
@@ -36,6 +53,23 @@
                         this.mail = " ";
                     }
                 }
+            },
+            methods: {
+                deletePostForIndex(index) {
+                    if (index >= 0 && index < this.posts.length) {
+                        this.posts.splice(index, 1);
+                    } else {
+                        console.log('No existe el índice');
+                    }
+                },
+                deletePostForId(id) {
+                    const findIndex = this.posts.findIndex((post) => post.id === id);
+                    if (findIndex >= 0 && findIndex < this.posts.length) {
+                        this.posts.splice(findIndex, 1);
+                    } else {
+                        console.log('No existe el índice');
+                    }
+                },
             },
             computed: {
                 label() {
